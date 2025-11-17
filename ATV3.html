@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Atividade 03 - Robotron</title>
+  <style>
+    :root{ --bg:#f7f9fb; --panel:#fff; --accent:#2b6cb0 }
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:var(--bg); margin:0; padding:24px; color:#222}
+    .container{max-width:980px; margin:auto; display:grid; grid-template-columns:1fr 420px; gap:24px; align-items:center}
+    .card{background:var(--panel); padding:28px; border-radius:12px; box-shadow:0 6px 20px rgba(20,30,40,0.06)}
+    h1{margin:0 0 12px 0; font-size:34px}
+    p{margin:8px 0 16px 0; line-height:1.45}
+
+    /* Robotron preview */
+    .preview{display:flex; flex-direction:column; align-items:center; gap:12px}
+    .robotron-wrap{width:360px; height:360px; display:flex; align-items:center; justify-content:center; position:relative}
+    img.robotron{max-width:100%; max-height:100%; transition:opacity .35s ease, transform .35s ease; opacity:1}
+    img.robotron.fade-out{opacity:0; transform:scale(.98)}
+
+    /* controls */
+    .controls{display:flex; gap:8px; align-items:center}
+    button{background:#fff; border-radius:10px; padding:10px 16px; border:1px solid #e6eef8; font-size:20px; cursor:pointer}
+    button:focus{outline:3px solid rgba(43,108,176,.18)}
+    .btn-ghost{background:transparent}
+    .index{font-size:14px; color:#666}
+
+    /* responsive */
+    @media (max-width:860px){.container{grid-template-columns:1fr; padding:8px} .robotron-wrap{width:320px;height:320px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Atividade 03</h1>
+      <p>Crie dois botões "&lt;&lt;" e "&gt;&gt;" que troquem a cor do Robotron. Todas as imagens devem ficar na pasta <code>img/</code>.</p>
+      <ul>
+        <li>Botões: navegar entre as imagens (circular).</li>
+        <li>Suporte a teclado: ← e →.</li>
+        <li>Se necessário, ajuste os nomes das imagens no array <code>images</code> abaixo.</li>
+      </ul>
+    </div>
+
+    <div class="card preview" aria-live="polite">
+      <div class="robotron-wrap" role="img" aria-label="Robotron - imagem colorida">
+        <!-- Imagem principal --><img id="robotron" class="robotron" src="img/robotron-pink.png" alt="Robotron" />
+      </div>
+
+      <div class="controls">
+        <button id="prev" aria-label="Imagem anterior">&lt;&lt;</button>
+        <button id="next" aria-label="Próxima imagem">&gt;&gt;</button>
+        <div class="index" id="index">1 / 6</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Lista de imagens (coloque os ficheiros dentro da pasta img/)
+    // Ajuste os nomes aqui se as imagens do seu projeto tiverem outros nomes.
+    const images = [
+      'img/robotron-pink.png',
+      'img/robotron-white.png',
+      'img/robotron-black.png',
+      'img/robotron-yellow.png',
+      'img/robotron-blue.png',
+      'img/robotron-gray.png'
+    ];
+
+    const imgEl = document.getElementById('robotron');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const indexEl = document.getElementById('index');
+
+    let current = 0;
+
+    function updateIndex() {
+      indexEl.textContent = (current + 1) + ' / ' + images.length;
+    }
+
+    function changeTo(i) {
+      // wrap-around
+      current = ((i % images.length) + images.length) % images.length;
+      // animação simples de fade
+      imgEl.classList.add('fade-out');
+      // espera a transição acabar para trocar src (35ms < transition 350ms)
+      setTimeout(() => {
+        imgEl.src = images[current];
+        imgEl.classList.remove('fade-out');
+        updateIndex();
+      }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => changeTo(current - 1));
+    nextBtn.addEventListener('click', () => changeTo(current + 1));
+
+    // suporte teclado: setas esquerda/direita
+    window.addEventListener('keydown', (ev) => {
+      if (ev.key === 'ArrowLeft') changeTo(current - 1);
+      if (ev.key === 'ArrowRight') changeTo(current + 1);
+    });
+
+    // garante que a imagem inicial corresponde ao array (caso queira usar outro nome)
+    if (images.length) imgEl.src = images[0];
+    updateIndex();
+  </script>
+</body>
+</html>
