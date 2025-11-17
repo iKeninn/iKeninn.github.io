@@ -1,174 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/jpg" href="img/favicon.ico"/>
-    <title>Robotron 2000</title>
-
-    <link rel="stylesheet" href="css/style.css">
+    <title>Robotron</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;500&display=swap" rel="stylesheet"> 
-</head>
-<body>
-    <main>
-        <section class="robotron">
-            <img id="robo" class="robo" src="img/robotron-azul.png" alt="Robotron">
-            <figcaption class="titulo">ROBOTRON <br>2000</figcaption>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;500&display=swap" rel="stylesheet">
 
-            <div style="position:absolute; bottom:20px; left:20px; display:flex; gap:10px; z-index:10;">
-                <button id="btn-voltar" class="controle-ajuste">«</button>
-                <button id="btn-avancar" class="controle-ajuste">»</button>
-            </div>
-        </section>
+    <style>
+        :root {
+            --main-cinza: #CCCCCC;
+            --main-branco: #FFFFFF;
+            --main-preto: #000000;
+        }
 
-        <section class="box estatisticas">
-            <div class="estatistica">
-                <p class="estatistica-titulo">Força</p>
-                <div class="estatistica-valor"><p class="estatistica-numero" id="forca">50</p></div>
-            </div>
-            <div class="estatistica">
-                <p class="estatistica-titulo">Poder</p>
-                <div class="estatistica-valor"><p class="estatistica-numero" id="poder">30</p></div>
-            </div>
-            <div class="estatistica">
-                <p class="estatistica-titulo">Energia</p>
-                <div class="estatistica-valor"><p class="estatistica-numero" id="energia">40</p></div>
-            </div>
-            <div class="estatistica">
-                <p class="estatistica-titulo">Velocidade</p>
-                <div class="estatistica-valor"><p class="estatistica-numero" id="velocidade">40</p></div>
-            </div>
-        </section>
+        * {
+            box-sizing: border-box;
+        }
 
-        <section class="equipamentos">
-            <form action="" class="montador" id="form-producao">
-                <div class="box montador-conteudo">
-                    <div class="peca">
-                        <label class="peca-titulo">Braços</label>
-                        <div class="controle">
-                            <buttom class="controle-ajuste">-</buttom>
-                            <input type="text" class="controle-contador" value="00">
-                            <buttom class="controle-ajuste">+</buttom>
-                        </div>
-                    </div>
-                    <hr class="linha">
+        body {
+            background: url(./img/fundo.jpg);
+            background-position: center center;
+            background-size: cover cover;
+            padding: 0;
+            margin: 0;
+            font-weight: 300;
+        }
 
-                    <div class="peca">
-                        <label class="peca-titulo">Blindagem</label>
-                        <div class="controle">
-                            <buttom class="controle-ajuste">-</buttom>
-                            <input type="text" class="controle-contador" value="00">
-                            <buttom class="controle-ajuste">+</buttom>
-                        </div>
-                    </div>
-                    <hr class="linha">
+        body, input {
+            font-family: 'Teko', sans-serif;
+        }
 
-                    <div class="peca">
-                        <label class="peca-titulo">Núcleos</label>
-                        <div class="controle">
-                            <buttom class="controle-ajuste">-</buttom>
-                            <input type="text" class="controle-contador" value="00">
-                            <buttom class="controle-ajuste">+</buttom>
-                        </div>
-                    </div>
-                    <hr class="linha">
+        main {
+            width: 80vw;
+            height: 80vh;
+            margin: 10vh 8vw 10vh 12vw;
+            display: flex;
+            gap: 1vw;
+        }
 
-                    <div class="peca">
-                        <label class="peca-titulo">Pernas</label>
-                        <div class="controle">
-                            <buttom class="controle-ajuste">-</buttom>
-                            <input type="text" class="controle-contador" value="00">
-                            <buttom class="controle-ajuste">+</buttom>
-                        </div>
-                    </div>
-                    <hr class="linha">
+        /* ================= ROBÔ ================= */
 
-                    <div class="peca">
-                        <label class="peca-titulo">Foguetes</label>
-                        <div class="controle">
-                            <buttom class="controle-ajuste">-</buttom>
-                            <input type="text" class="controle-contador" value="00">
-                            <buttom class="controle-ajuste">+</buttom>
-                        </div>
-                    </div>
-                </div>
+        .robotron {
+            background: url(./img/estrutura.png) no-repeat;
+            background-position: center center;
+            margin: 0;
+            flex-basis: 40%;
+            position: relative;
+        }
 
-                <input type="submit" value="Iniciar produção" class="producao" id="producao">
-            </form>
-        </section>
+        .robo {
+            height: 110%;
+            z-index: 1;
+            position: absolute;
+            left: -20%;
+            top: -5%;
+        }
 
-        <!-- ⬅ nova área de robôs produzidos -->
-        <section id="producao-area" class="box" style="flex-basis:20%; padding:20px; overflow-y:auto;">
-            <h2 style="color:white; text-align:center;">Produção</h2>
-        </section>
+        .titulo {
+            transform: rotate(180deg);
+            font-weight: 500;
+            font-size: 130px;
+            position: absolute;
+            bottom: 7rem;
+            left: -3rem;
+            line-height: 0.8;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: rgba(255,255,255,0.8)
+        }
 
-    </main>
+        /* --------- BOTÕES PARA MUDAR A COR DO ROBÔ -------- */
 
-<script>
-/* ---------------- TROCA DE CORES ---------------- */
+        .trocar-cor {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            display: flex;
+            gap: 10px;
+            z-index: 5;
+        }
 
-const imagens = [
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439984917332234280/robotron-amarelo.png?ex=691c81f5&is=691b3075&hm=1608315e416b2b64622fc3d69705f756535a747419404a918f7f8c526683c779&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439984955529629750/robotron-azul.png?ex=691c81ff&is=691b307f&hm=0d87da47ac380aeeeb8630b79ec8f673ee3c0da7a5b9ad703f02977010e77a76&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439984977373823027/robotron-branco.png?ex=691c8204&is=691b3084&hm=7339adcf9e2b87694131c2edaeab6f12846356fab58edc75f6cdac6b3150d2aa&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439985011129319525/robotron-preto.png?ex=691c820c&is=691b308c&hm=ebbe2c0a8d88aea71e62c58b32ea85e315549714cb9bf8adc5fd537449ad59f5&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439985029039132723/robotron-rosa.png?ex=691c8210&is=691b3090&hm=eec4fd372055b63b2ed9e7f01d0ff8bcea680ebd662d0cf7d1c3acabf41b341a&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439985054687428748/robotron-vermelho.png?ex=691c8216&is=691b3096&hm=fcb0637214ea3f451eba2a9b260ae6cf05373b4358c9faf2a88cbb234f72318a&"
-];
+        .trocar-cor button {
+            padding: 10px 15px;
+            background: var(--main-preto);
+            color: var(--main-branco);
+            border: 2px solid var(--main-cinza);
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 1.5em;
+        }
 
-const stats = {
-    azul:{forca:50,poder:30,energia:40,velocidade:40},
-    amarelo:{forca:30,poder:20,energia:30,velocidade:70},
-    preto:{forca:80,poder:40,energia:50,velocidade:30},
-    branco:{forca:40,poder:40,energia:40,velocidade:40},
-    rosa:{forca:25,poder:20,energia:30,velocidade:60},
-    vermelho:{forca:70,poder:80,energia:50,velocidade:50}
-};
+        .trocar-cor button:hover {
+            background: var(--main-cinza);
+            color: var(--main-preto);
+        }
 
-let pos = 0;
-const robo = document.getElementById("robo");
+        /* =============== RESTO DOS COMPONENTES =============== */
 
-function atualizarStats() {
-    const nome = imagens[pos].replace("img/robotron-", "").replace(".png", "");
-    const s = stats[nome];
-
-    document.getElementById("forca").textContent = s.forca;
-    document.getElementById("poder").textContent = s.poder;
-    document.getElementById("energia").textContent = s.energia;
-    document.getElementById("velocidade").textContent = s.velocidade;
-}
-
-document.getElementById("btn-avancar").onclick = () => {
-    pos = (pos + 1) % imagens.length;
-    robo.src = imagens[pos];
-    atualizarStats();
-};
-
-document.getElementById("btn-voltar").onclick = () => {
-    pos = (pos - 1 + imagens.length) % imagens.length;
-    robo.src = imagens[pos];
-    atualizarStats();
-};
-
-atualizarStats();
-
-/* ---------------- PRODUÇÃO ---------------- */
-
-document.getElementById("form-producao").addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const novo = document.createElement("img");
-    novo.src = imagens[pos];
-    novo.style.width = "120px";
-    novo.style.display = "block";
-    novo.style.margin = "10px auto";
-
-    document.getElementById("producao-area").appendChild(novo);
-});
-</script>
-
-</body>
-</html>
+        .box {
+            background: rgba(0,0,0,
