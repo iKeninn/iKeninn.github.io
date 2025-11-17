@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Atividade 01</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .caixa {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 400px;
+        }
+        input {
+            padding: 5px;
+            margin: 5px 0;
+        }
+        button {
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="caixa">
+        <h2>Atividade 01</h2>
+
+        <label>Nome Completo:</label><br>
+        <input type="text" id="nomeCompleto"><br><br>
+
+        <button onclick="separar()">>></button><br><br>
+
+        <label>Nome:</label><br>
+        <input type="text" id="nome"><br>
+
+        <label>Sobrenome:</label><br>
+        <input type="text" id="sobrenome"><br>
+    </div>
+
+    <script>
+        function separar() {
+            let completo = document.getElementById("nomeCompleto").value.trim();
+
+            // divide o nome por espaço
+            let partes = completo.split(" ");
+
+            // primeira palavra é o nome
+            let nome = partes.shift();
+
+            // o resto é sobrenome
+            let sobrenome = partes.join(" ");
+
+            document.getElementById("nome").value = nome;
+            document.getElementById("sobrenome").value = sobrenome;
+        }
+    </script>
+
+</body>
+</html>
