@@ -18,7 +18,6 @@
             <img id="robo" class="robo" src="img/robotron-azul.png" alt="Robotron">
             <figcaption class="titulo">ROBOTRON <br>2000</figcaption>
 
-            <!-- BOTÕES DA ATIVIDADE -->
             <div style="position:absolute; bottom:20px; left:20px; display:flex; gap:10px; z-index:10;">
                 <button id="btn-voltar" class="controle-ajuste">«</button>
                 <button id="btn-avancar" class="controle-ajuste">»</button>
@@ -28,37 +27,27 @@
         <section class="box estatisticas">
             <div class="estatistica">
                 <p class="estatistica-titulo">Força</p>
-                <div class="estatistica-valor">
-                    <p class="estatistica-numero" id="forca">50</p>
-                </div>
+                <div class="estatistica-valor"><p class="estatistica-numero" id="forca">50</p></div>
             </div>
             <div class="estatistica">
                 <p class="estatistica-titulo">Poder</p>
-                <div class="estatistica-valor">
-                    <p class="estatistica-numero" id="poder">30</p>
-                </div>
+                <div class="estatistica-valor"><p class="estatistica-numero" id="poder">30</p></div>
             </div>
             <div class="estatistica">
                 <p class="estatistica-titulo">Energia</p>
-                <div class="estatistica-valor">
-                    <p class="estatistica-numero" id="energia">40</p>
-                </div>
+                <div class="estatistica-valor"><p class="estatistica-numero" id="energia">40</p></div>
             </div>
             <div class="estatistica">
                 <p class="estatistica-titulo">Velocidade</p>
-                <div class="estatistica-valor">
-                    <p class="estatistica-numero" id="velocidade">40</p>
-                </div>
+                <div class="estatistica-valor"><p class="estatistica-numero" id="velocidade">40</p></div>
             </div>
         </section>
 
         <section class="equipamentos">
-            <form action="" class="montador">
+            <form action="" class="montador" id="form-producao">
                 <div class="box montador-conteudo">
-                    
-                    <!-- seus controles de peças (iguais) -->
                     <div class="peca">
-                        <label for="" class="peca-titulo">Braços</label>
+                        <label class="peca-titulo">Braços</label>
                         <div class="controle">
                             <buttom class="controle-ajuste">-</buttom>
                             <input type="text" class="controle-contador" value="00">
@@ -68,7 +57,7 @@
                     <hr class="linha">
 
                     <div class="peca">
-                        <label for="" class="peca-titulo">Blindagem</label>
+                        <label class="peca-titulo">Blindagem</label>
                         <div class="controle">
                             <buttom class="controle-ajuste">-</buttom>
                             <input type="text" class="controle-contador" value="00">
@@ -78,7 +67,7 @@
                     <hr class="linha">
 
                     <div class="peca">
-                        <label for="" class="peca-titulo">Núcleos</label>
+                        <label class="peca-titulo">Núcleos</label>
                         <div class="controle">
                             <buttom class="controle-ajuste">-</buttom>
                             <input type="text" class="controle-contador" value="00">
@@ -88,7 +77,7 @@
                     <hr class="linha">
 
                     <div class="peca">
-                        <label for="" class="peca-titulo">Pernas</label>
+                        <label class="peca-titulo">Pernas</label>
                         <div class="controle">
                             <buttom class="controle-ajuste">-</buttom>
                             <input type="text" class="controle-contador" value="00">
@@ -98,44 +87,48 @@
                     <hr class="linha">
 
                     <div class="peca">
-                        <label for="" class="peca-titulo">Foguetes</label>
+                        <label class="peca-titulo">Foguetes</label>
                         <div class="controle">
                             <buttom class="controle-ajuste">-</buttom>
                             <input type="text" class="controle-contador" value="00">
                             <buttom class="controle-ajuste">+</buttom>
                         </div>
                     </div>
-
                 </div>
+
                 <input type="submit" value="Iniciar produção" class="producao" id="producao">
             </form>
         </section>
+
+        <!-- ⬅ nova área de robôs produzidos -->
+        <section id="producao-area" class="box" style="flex-basis:20%; padding:20px; overflow-y:auto;">
+            <h2 style="color:white; text-align:center;">Produção</h2>
+        </section>
+
     </main>
 
-
-<!-- SCRIPT DA TROCA DE COR + ESTATÍSTICAS -->
 <script>
+/* ---------------- TROCA DE CORES ---------------- */
+
 const imagens = [
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439984917332234280/robotron-amarelo.png?ex=691c81f5&is=691b3075&hm=1608315e416b2b64622fc3d69705f756535a747419404a918f7f8c526683c779&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439984955529629750/robotron-azul.png?ex=691c81ff&is=691b307f&hm=0d87da47ac380aeeeb8630b79ec8f673ee3c0da7a5b9ad703f02977010e77a76&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439984977373823027/robotron-branco.png?ex=691c8204&is=691b3084&hm=7339adcf9e2b87694131c2edaeab6f12846356fab58edc75f6cdac6b3150d2aa&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439985011129319525/robotron-preto.png?ex=691c820c&is=691b308c&hm=ebbe2c0a8d88aea71e62c58b32ea85e315549714cb9bf8adc5fd537449ad59f5&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439985029039132723/robotron-rosa.png?ex=691c8210&is=691b3090&hm=eec4fd372055b63b2ed9e7f01d0ff8bcea680ebd662d0cf7d1c3acabf41b341a&",
-    "https://cdn.discordapp.com/attachments/850725229814218776/1439985054687428748/robotron-vermelho.png?ex=691c8216&is=691b3096&hm=fcb0637214ea3f451eba2a9b260ae6cf05373b4358c9faf2a88cbb234f72318a&"
+    "img/robotron-azul.png",
+    "img/robotron-amarelo.png",
+    "img/robotron-preto.png",
+    "img/robotron-branco.png",
+    "img/robotron-rosa.png",
+    "img/robotron-vermelho.png"
 ];
 
-// estatísticas equilibradas (OPÇÃO A)
 const stats = {
-    azul:      {forca:50, poder:30, energia:40, velocidade:40},
-    amarelo:   {forca:30, poder:20, energia:30, velocidade:70},
-    preto:     {forca:80, poder:40, energia:50, velocidade:30},
-    branco:    {forca:40, poder:40, energia:40, velocidade:40},
-    rosa:      {forca:25, poder:20, energia:30, velocidade:60},
-    vermelho:  {forca:70, poder:80, energia:50, velocidade:50}
+    azul:{forca:50,poder:30,energia:40,velocidade:40},
+    amarelo:{forca:30,poder:20,energia:30,velocidade:70},
+    preto:{forca:80,poder:40,energia:50,velocidade:30},
+    branco:{forca:40,poder:40,energia:40,velocidade:40},
+    rosa:{forca:25,poder:20,energia:30,velocidade:60},
+    vermelho:{forca:70,poder:80,energia:50,velocidade:50}
 };
 
 let pos = 0;
-
 const robo = document.getElementById("robo");
 
 function atualizarStats() {
@@ -148,20 +141,33 @@ function atualizarStats() {
     document.getElementById("velocidade").textContent = s.velocidade;
 }
 
-document.getElementById("btn-avancar").addEventListener("click", () => {
+document.getElementById("btn-avancar").onclick = () => {
     pos = (pos + 1) % imagens.length;
     robo.src = imagens[pos];
     atualizarStats();
-});
+};
 
-document.getElementById("btn-voltar").addEventListener("click", () => {
+document.getElementById("btn-voltar").onclick = () => {
     pos = (pos - 1 + imagens.length) % imagens.length;
     robo.src = imagens[pos];
     atualizarStats();
-});
+};
 
-// inicializa estatísticas da primeira cor
 atualizarStats();
+
+/* ---------------- PRODUÇÃO ---------------- */
+
+document.getElementById("form-producao").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const novo = document.createElement("img");
+    novo.src = imagens[pos];
+    novo.style.width = "120px";
+    novo.style.display = "block";
+    novo.style.margin = "10px auto";
+
+    document.getElementById("producao-area").appendChild(novo);
+});
 </script>
 
 </body>
