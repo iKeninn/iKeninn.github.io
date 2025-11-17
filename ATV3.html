@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robotron</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;500&display=swap" rel="stylesheet">
@@ -22,13 +23,10 @@
         body {
             background: url(./img/fundo.jpg);
             background-position: center center;
-            background-size: cover cover;
+            background-size: cover;
             padding: 0;
             margin: 0;
             font-weight: 300;
-        }
-
-        body, input {
             font-family: 'Teko', sans-serif;
         }
 
@@ -40,12 +38,11 @@
             gap: 1vw;
         }
 
-        /* ================= ROBÔ ================= */
+        /* ============ ROBOTRON ORIGINAL ============ */
 
         .robotron {
             background: url(./img/estrutura.png) no-repeat;
             background-position: center center;
-            margin: 0;
             flex-basis: 40%;
             position: relative;
         }
@@ -71,33 +68,171 @@
             color: rgba(255,255,255,0.8)
         }
 
-        /* --------- BOTÕES PARA MUDAR A COR DO ROBÔ -------- */
-
-        .trocar-cor {
-            position: absolute;
-            bottom: 20px;
-            left: 50px;
-            display: flex;
-            gap: 10px;
-            z-index: 5;
+        .box {
+            background: rgba(0,0,0,0.6);
+            clip-path: polygon(calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px, 30px 0);
+            border-left: 5px solid var(--main-cinza);
+            height: 80%;
         }
 
-        .trocar-cor button {
-            padding: 10px 15px;
+        /* ============ EQUIPAMENTOS ============ */
+
+        .equipamentos {
+            flex-basis: 32%;
+        }
+
+        .montador-conteudo {
+            padding: 2em 10%;
+        }
+
+        .peca {
+            padding: 1em 0;
+        }
+
+        .peca-titulo {
+            color: var(--main-branco);
+            text-transform: uppercase;
+            font-size: 2.5em;
+        }
+
+        /* ============ ESTATÍSTICAS ============ */
+
+        .estatisticas {
+            flex-basis: 23%;
+            padding: 2em 2em 0;
+        }
+
+        .estatistica {
+            color: var(--main-branco);
+            display: flex;
+            align-items: flex-start;
+            height: 25%;
+        }
+
+        .estatistica-titulo {
+            font-size: 1.5em;
+            border-bottom: 1px solid var(--main-cinza);
+            flex-basis: 40%;
+            text-transform: uppercase;
+        }
+
+        .estatistica-valor {
+            flex-basis: 60%;
+            position: relative;
+            margin-top: -10px;
+        }
+
+        .estatistica-valor::after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+            border: 1px solid var(--main-cinza);
+            border-radius: 50%;
+        }
+
+        .estatistica-numero {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-46%);
+            width: 100%;
+            text-align: center;
+            font-size: 3em;
+        }
+
+        /* ================================================
+           NOVO BLOCO LATERAL (A IMAGEM QUE PODE TROCAR)
+        ================================================= */
+
+        .imagem-lateral {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--main-cinza);
+            border-radius: 10px;
+            padding: 20px;
+            height: fit-content;
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .imagem-lateral img {
+            width: 150px;  /* NÃO BUGA, NÃO ESTOURA */
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .opcoes button {
+            padding: 8px;
+            font-size: 1.4em;
+            cursor: pointer;
             background: var(--main-preto);
             color: var(--main-branco);
             border: 2px solid var(--main-cinza);
-            cursor: pointer;
-            border-radius: 10px;
-            font-size: 1.5em;
+            border-radius: 8px;
         }
 
-        .trocar-cor button:hover {
+        .opcoes button:hover {
             background: var(--main-cinza);
             color: var(--main-preto);
         }
 
-        /* =============== RESTO DOS COMPONENTES =============== */
+    </style>
+</head>
 
-        .box {
-            background: rgba(0,0,0,
+<body>
+    <main>
+
+        <!-- Robotron original -->
+        <div class="robotron">
+            <img class="robo" src="./img/robo-azul.png">
+            <h1 class="titulo">Robotron</h1>
+        </div>
+
+        <!-- Equipamentos -->
+        <section class="equipamentos box">
+            <div class="montador">
+                <div class="montador-conteudo">
+                    <div class="peca">
+                        <h2 class="peca-titulo">Braço</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estatísticas -->
+        <section class="estatisticas box">
+            <div class="estatistica">
+                <p class="estatistica-titulo">Força</p>
+                <div class="estatistica-valor">
+                    <p class="estatistica-numero">10</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOVA ÁREA LATERAL — IMAGEM QUE TROCA -->
+        <div class="imagem-lateral">
+            <img id="img-troca" src="./img/robo-azul.png" alt="Robô Colorido">
+
+            <div class="opcoes">
+                <button onclick="trocaCor('robo-azul.png')">Azul</button>
+                <button onclick="trocaCor('robo-vermelho.png')">Vermelho</button>
+                <button onclick="trocaCor('robo-verde.png')">Verde</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function trocaCor(arquivo) {
+            document.getElementById("img-troca").src = "./img/" + arquivo;
+        }
+    </script>
+</body>
+</html>
