@@ -44,13 +44,10 @@
         function separar() {
             let completo = document.getElementById("nomeCompleto").value.trim();
 
-            // divide o nome por espaço
             let partes = completo.split(" ");
 
-            // primeira palavra é o nome
             let nome = partes.shift();
 
-            // o resto é sobrenome
             let sobrenome = partes.join(" ");
 
             document.getElementById("nome").value = nome;
