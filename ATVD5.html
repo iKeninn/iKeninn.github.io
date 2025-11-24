@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Formulário de Pré‑Matrícula</title>
+<style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1, h2 { text-align: center; }
+    fieldset { margin-bottom: 20px; padding: 15px; }
+    label { display: inline-block; width: 140px; margin-bottom: 6px; }
+    input[type="text"], input[type="email"], select { padding: 4px; width: 200px; }
+    .linha { margin-bottom: 8px; }
+    .atividades label { width: auto; display: block; }
+    button { padding: 8px 14px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<h1>Escola Virtual</h1>
+<h2>Formulário de Pré‑Matrícula</h2>
+
+<form id="formulario">
+
+<fieldset>
+<legend>Dados Pessoais</legend>
+
+<div class="linha">
+    <label>Nome do Aluno:</label>
+    <input type="text" id="aluno">
+</div>
+
+<div class="linha">
+    <label>Nascimento:</label>
+    <input type="text" id="dia" placeholder="dd" size="2">
+    <input type="text" id="mes" placeholder="mm" size="2">
+    <input type="text" id="ano" placeholder="aaaa" size="4">
+</div>
+
+<div class="linha">
+    <label>Nome da Mãe:</label>
+    <input type="text" id="mae">
+</div>
+
+<div class="linha">
+    <label>Nome do Pai:</label>
+    <input type="text" id="pai">
+</div>
+
+<div class="linha">
+    <label>Telefone:</label>
+    DDD <input type="text" id="ddd" size="2"> 
+    Tel: <input type="text" id="tel" size="8"> 
+    Ramal: <input type="text" id="ramal" size="4">
+</div>
+
+<div class="linha">
+    <label>E-mail:</label>
+    <input type="email" id="email">
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Informações de Matrícula</legend>
+
+<div class="linha">
+<label>Série:</label>
+<select id="serie">
+    <option>pré‑escolar</option>
+    <option>1º ano</option>
+    <option>2º ano</option>
+</select>
+</div>
+
+<div class="linha">
+<label>Turno:</label>
+<input type="radio" name="turno" value="manha"> Manhã
+<input type="radio" name="turno" value="tarde"> Tarde
+</div>
+
+<div class="linha atividades">
+<label>Atividades Extracurriculares:</label>
+<input type="checkbox" class="atividade" value="Informatica"> Informática<br>
+<input type="checkbox" class="atividade" value="Musica"> Música<br>
+<input type="checkbox" class="atividade" value="Balet"> Balé<br>
+<input type="checkbox" class="atividade" value="Pintura"> Pintura<br>
+<input type="checkbox" class="atividade" value="Judo"> Judô<br>
+<input type="checkbox" class="atividade" value="Futebol"> Futebol<br>
+</div>
+
+</fieldset>
+
+<button type="button" onclick="enviar()">Enviar Formulário</button>
+<button type="reset">Limpar Campos</button>
+</form>
+
+<script>
+function enviar() {
+    const aluno = document.getElementById("aluno").value.trim();
+    const mae = document.getElementById("mae").value.trim();
+    const pai = document.getElementById("pai").value.trim();
+    const dia = document.getElementById("dia").value;
+    const mes = document.getElementById("mes").value;
+    const ano = document.getElementById("ano").value;
+    const ddd = document.getElementById("ddd").value;
+    const tel = document.getElementById("tel").value;
+    const email = document.getElementById("email").value.trim();
+
+    const dddsValidos = ["11","12","13","14","15","16","17","18","19","21","22","24","27","28","31","32","33","34","35","37","38","41","42","43","44","45","46","47","48","49","51","53","54","55","61","62","64","63","65","66","67","68","69","71","73","74","75","77","79","81","87","82","83","84","85","88","86","89","91","93","94","92","97","95","96","98","99"];
+
+    if (!aluno || !mae || !pai || !dia || !mes || !ano || !ddd || !tel || !email) {
+        alert("Preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    const dataValida = new Date(`${ano}-${mes}-${dia}`);
+    if (isNaN(dataValida.getTime()) || ano.length !== 4) {
+        alert("Data de nascimento inválida.");
+        return;
+    }
+
+    if (!email.includes("@") || !email.includes(".")) {
+        alert("E-mail inválido.");
+        return;
+    }
+
+    if (!dddsValidos.includes(ddd)) {
+        alert("DDD inválido.");
+        return;
+    }
+
+    const atividades = document.querySelectorAll('.atividade:checked');
+    if (atividades.length > 3) {
+        alert("Selecione no máximo 3 atividades extracurriculares.");
+        return;
+    }
+
+    alert("Cadastro realizado com sucesso!");
+}
+</script>
+</body>
+</html>
